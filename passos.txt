@@ -1,0 +1,7 @@
+Novo Projeto
+
+-cmd cd até a pasta do projeto
+-npm install --save express (cria abstrações de rotas)
+-npm install --save express-handlebars (template engine - estrutura de condição no html - exibir dados do back-end no html)
+-npm install --save body-parser (converter o body da requisição para vários formatos. Um desses formatos é json)
+-npm install --save mongoose (abstrai o banco de dados)
