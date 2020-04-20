@@ -5,3 +5,6 @@ Novo Projeto
 -npm install --save express-handlebars (template engine - estrutura de condição no html - exibir dados do back-end no html)
 -npm install --save body-parser (converter o body da requisição para vários formatos. Um desses formatos é json)
 -npm install --save mongoose (abstrai o banco de dados)
+
+-npm install --save express-session (configurar uma sessão)
+-npm install --save connect-flash (O flash é uma área especial da sessão usada para armazenar mensagens. As mensagens são gravadas no flash e apagadas após serem exibidas ao usuário.
