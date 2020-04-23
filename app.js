@@ -8,6 +8,8 @@ const path = require('path') //manipuar pastas
 const mongoose = require('mongoose')
 const session = require("express-session")
 const flash = require("connect-flash")
+require("./models/Postagens")
+const Postagem = mongoose.model("Postagens")
 //Configurações
 //sessão
 app.use(session({
@@ -45,9 +47,31 @@ app.use((req, res, next) => {
 })
 
 //Rotas
-app.get('/', (req, res) => {
-    res.send("Pagina Principal")
+app.get("/", (req, res) => {
+    Postagem.find().populate("categoria").lean().sort({ data: "desc" }).then((Postagens) => {
+        res.render("index", { Postagens: Postagens })
+    }).catch((err) => {
+        req.flash("error_msg", "houve um erro interno")
+        res.redirect("/404")
+    })
 })
+app.get("/postagem/:slug", (req, res) => {
+    Postagem.findOne({ slug: req.params.slug }).lean().then((postagem) => {
+        if (postagem) {
+            res.render("postagem/index", { postagem: postagem })
+        } else {
+            req.flash("error_msg", "esta postagem nao existe")
+            res.redirect("/")
+        }
+    }).catch((err)=>{
+        req.flash("error_msg", "houve um erro interno")
+        res.redirect("/")
+    })
+})
+app.get("/404", (req, res) => {
+    res.send("erro 404")
+})
+
 app.get('/posts', (req, res) => {
     res.send("Lista de Posts")
 })

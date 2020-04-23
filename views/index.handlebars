@@ -1,0 +1,31 @@
+<div class="jumbotron">
+    <h1 class="display-4">Bem Vindo ao Blog do Node</h1>
+    <p class="lead">Node.js é um interpretador de JavaScript assíncrono com código aberto orientado a eventos, criado
+        por Ryan Dahl em 2009, focado em migrar a programação do Javascript do cliente para os servidores.</p>
+    <hr class="my-4">
+    <p>O Node.js (ambiente de execução Javascript no servidor) foi implementado baseado no interpretador V8 JavaScript
+        Engine.</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Crie uma conta</a>
+    </p>
+</div>
+
+<hr>
+<h2>Postagens Recentes:</h2>
+
+{{#each Postagens}}
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h3>{{titulo}}</h3>
+        <p>{{descricao}}</p>
+        <a href="/postagem/{{slug}}"><button class="btn btn-success">Leia Mais</button></a>
+        <hr>
+        <small>Categoria: {{categoria.nome}}</small><br>
+        <small>Data de Publicação: {{data}}</small>
+    </div>
+</div>
+
+{{else}}
+<h5>Nenhuma Postagem</h5>
+{{/each}}

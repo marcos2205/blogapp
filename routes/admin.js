@@ -145,6 +145,7 @@ router.get("/postagens/edit/:id", (req, res) => {
         res.redirect("/admin/postagens")
     })
 })
+
 router.post("/postagem/edit", (req, res) => {
     Postagem.findOne({ _id: req.body.id }).then((postagem) => {
 
@@ -154,19 +155,28 @@ router.post("/postagem/edit", (req, res) => {
         postagem.conteudo = req.body.conteudo
         postagem.categoria = req.body.categoria
 
-        Postagem.save().then(() => {
+        postagem.save().then(() => {
             req.flash("success_msg", "postagem editada com sucesso")
             res.redirect("/admin/postagens")
-        }).catch((err) =>{
+        }).catch((err) => {
             req.flash("error_msg", "houve um erro ao salvar a edicao")
             res.redirect("/admin/postagens")
         })
-
-
-}).catch((err) => {
-    req.flash("error_msg", "houve um erro ao salvar e edicao")
-    res.redirect("/admin/postangens")
+    }).catch((err) => {
+        req.flash("error_msg", "houve um erro ao salvar e edicao")
+        res.redirect("/admin/postangens")
+    })
 })
+//forma menos segura
+router.get("/postagens/deletar/:id", (req, res) => {
+    Postagem.remove({ _id: req.params.id }).then(() => {
+        req.flash("success_msg", "deletada com sucesso")
+        res.redirect("/admin/postagens")
+    }).catch((err) => {
+        req.flash("erro_msg", "houve um erro interno")
+        res.redirect("/admin/postagens")
+    })
+
 })
 
 
