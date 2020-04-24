@@ -15,12 +15,16 @@
             <input type="text" name="descricao" class="form-control" value="{{postagem.descricao}}">
             <label for="conteudo">Conteúdo: </label>
             <textarea name="conteudo" class="form-control">{{postagem.conteudo}}</textarea>
-            <label for="categoria">Contegoria: </label>
+            <label for="categoria">Categoria: </label>
+            {{postagem.categoria}}
+
             <select name="categoria" class="custom-select">
                 {{#each categorias}}
-                <option value="{{_id}}">{{nome}}</option>
+                {{#if_eq this._id ../postagem.categoria}}
+                <option value="{{this._id}}" selected>{{this.nome}}</option>
                 {{else}}
-                <option value="0">Nenhuma categoria registrada </option>
+                <option value="{{this._id}}">{{this.nome}}</option>
+                {{/if_eq}}
                 {{/each}}
             </select>
 

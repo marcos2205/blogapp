@@ -67,6 +67,8 @@ router.post("/categorias/edit", (req, res) => {
         categoria.nome = req.body.nome
         categoria.slug = req.body.slug
 
+        
+
         categoria.save().then(() => {
             req.flash('success_msg', 'Categoria editada com sucesso!')
             res.redirect('/admin/categorias')
@@ -132,6 +134,8 @@ router.post("/postagens/nova", (req, res) => {
 
     }
 })
+
+
 router.get("/postagens/edit/:id", (req, res) => {
     Postagem.findOne({ _id: req.params.id }).lean().then((postagem) => {
         Categoria.find().lean().then((categorias) => {
