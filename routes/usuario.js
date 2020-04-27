@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const passport = require("passport")
 
 // Incluindo model Usuario
 require("../models/Usuario");
@@ -41,7 +42,7 @@ router.post("/registro", (req, res) => {
                 var novoUsuario = new Usuario({
                     nome: req.body.nome,
                     email: req.body.email,
-                    senha: req.body.senha
+                    senha: req.body.senha,                    
                 });
 
                 bcrypt.genSalt(10, (err, salt) => {
@@ -90,8 +91,20 @@ router.get("/logout", (req, res) => {
     res.redirect("/")
 })
 
-router.get("/login",(req,res)=>{
+router.get("/login", (req, res) => {
     res.render("usuarios/login")
+})
+router.post("/login", (req, res, next) => {
+    passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "/usuarios/login",
+        failureFlash: true
+    })(req, res, next)
+})
+router.get("/logout", (req, res) => {
+    req.logout()
+    req.flash('success_msg', "Deslogando com sucesso!")
+    res.redirect("/")
 })
 
 module.exports = router;
