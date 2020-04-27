@@ -9,15 +9,11 @@ const mongoose = require('mongoose')
 const session = require("express-session")
 const flash = require("connect-flash")
 require("./models/Postagens")
-
 const hbs = handlebars.create({
     defaultLayout: 'main',
-
     helpers: {
         if_eq: function (a, b, opts) {
-
             if (a.toString() == b.toString()) {
-
                 return opts.fn(this)
             } else {
                 return opts.inverse(this)
@@ -25,11 +21,10 @@ const hbs = handlebars.create({
         }
     }
 })
-
-
 const Postagem = mongoose.model("Postagens")
 require("./models/Categoria")
 const Categoria = mongoose.model("Categorias")
+const usuarios = require("./routes/usuario")
 //Configurações
 //sessão
 app.use(session({
@@ -124,6 +119,8 @@ app.get('/posts', (req, res) => {
 })
 
 app.use('/admin', admin)
+
+app.use("/usuarios", usuarios)
 
 //Outros
 const PORT = 8081
